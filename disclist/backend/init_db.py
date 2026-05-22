@@ -59,6 +59,50 @@ def init_db():
                 PRIMARY KEY (post_id, user_id)
             );
         """)
+
+        # --- Seed data ---
+
+        users = [
+            ("Evelyn", "hashed_password_1"),
+            ("Lydia", "hashed_password_2"),
+            ("Lili", "hashed_password_3"),
+        ]
+        cursor.executemany(
+            "INSERT OR IGNORE INTO users (username, password_hash) VALUES (?, ?)", users
+        )
+
+        artists = [
+            ("Daft Punk",),
+            ("LCD Soundsystem",),
+            ("Massive Attack",),
+            ("Underworld",),
+        ]
+        cursor.executemany(
+            "INSERT OR IGNORE INTO artists (name) VALUES (?)", artists
+        )
+
+        artist_ids = {row[0]: row[1] for row in cursor.execute("SELECT name, id FROM artists")}
+
+        albums = [
+            (artist_ids["Daft Punk"], "Random Access Memories"),
+            (artist_ids["LCD Soundsystem"], "LCD Soundsystem"),
+            (artist_ids["Massive Attack"], "Mezzanine"),
+            (artist_ids["Underworld"], "Everything, Everything (Live)")
+        ]
+        cursor.executemany(
+            "INSERT OR IGNORE INTO albums (artist_id, name) VALUES (?, ?)", albums
+        )
+
+        album_ids = {row[0]: row[1] for row in cursor.execute("SELECT name, id FROM albums")}
+
+        posts = [
+            (1, album_ids["Mezzanine"], 4, "LOVE" )
+        ]
+        cursor.executemany(
+            "INSERT OR IGNORE INTO posts (user_id, album_id, rating, review) VALUES (?, ?, ?, ?)", posts
+        )
+
+        conn.commit()
     
 if __name__ == "__main__":
     init_db()
