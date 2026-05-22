@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { fetchPosts } from "../api/posts"
-import AlbumCard from "../components/AlbumCard"
+import PostCard from "../components/PostCard"
 
 export default function Feed() {
     const [posts, setPosts] = useState([])
@@ -21,7 +21,7 @@ export default function Feed() {
         <div className="p-4">
             <div className="flex flex-wrap gap-4">
                 {posts.map(post => (
-                    <AlbumCard key={post.id} post={post} />
+                    <PostCard key={post.id} post={post} />
                 ))}
             </div>
         </div>
