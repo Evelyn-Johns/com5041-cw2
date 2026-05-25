@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { fetchPosts } from "../api/posts"
 import PostCard from "../components/PostCard"
 
-export default function Feed() {
+export default function Home() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -18,12 +18,21 @@ export default function Feed() {
     if (error) return <div className="alert alert-error m-4">{error}</div>
 
     return (
-        <div className="p-4">
-            <div className="flex flex-wrap gap-4">
+
+        <div className="p-4 flex flex-col justify-center">
+
+            <div className="mb-2">
+                <p className="text-l">Recent</p>
+            </div>
+
+            <div className="carousel carousel-center rounded-box max-w-md space-x-4">
                 {posts.map(post => (
-                    <PostCard key={post.id} post={post} />
+                    <div key={post.id} className="carousel-item">
+                        <PostCard key={post.id} post={post} />
+                    </div>
                 ))}
             </div>
+
         </div>
     )
 }

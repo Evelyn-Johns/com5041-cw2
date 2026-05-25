@@ -96,7 +96,8 @@ def init_db():
         album_ids = {row[0]: row[1] for row in cursor.execute("SELECT name, id FROM albums")}
 
         posts = [
-            (1, album_ids["Mezzanine"], 4, "LOVE" )
+            (1, album_ids["Mezzanine"], 4, "LOVE" ),
+            (1, album_ids["Random Access Memories"], 3, "Pretty good")
         ]
         cursor.executemany(
             "INSERT OR IGNORE INTO posts (user_id, album_id, rating, review) VALUES (?, ?, ?, ?)", posts
