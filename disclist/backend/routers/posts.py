@@ -4,11 +4,11 @@ from database import get_db
 
 router = APIRouter(prefix="/posts", tags=["posts"])
 
-class PostCreate(BaseModel):
-    album_name: str
-    artist_name: str
-    rating: int
-    review: str | None = None
+# class PostCreate(BaseModel):
+#     album_name: str
+#     artist_name: str
+#     rating: int
+#     review: str | None = None
 
 @router.get("/")
 def get_posts():

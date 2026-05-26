@@ -15,10 +15,10 @@ export default function PostCard({ post }) {
                     </div>
 
                     <div className="flex flex-col">
-                        <h2 className="card-title leading-tight">
+                        <h2 className="card-title text-sm leading-tight">
                             {post.album_name}
                         </h2>
-                        <p className="text-sm opacity-70">
+                        <p className="text-xs opacity-70">
                             {post.artist_name}
                         </p>
                     </div>
@@ -47,7 +47,7 @@ export default function PostCard({ post }) {
                     />
 
                     {post.review && (
-                        <p className="text-sm mt-1 opacity-90">
+                        <p className="text-xs mt-1 opacity-90">
                             {post.review}
                         </p>
                     )}
