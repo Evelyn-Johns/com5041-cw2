@@ -44,7 +44,19 @@ export default function Home() {
             </div>
 
             <div className="mb-2">
-                <p className="text-l">Popular</p>
+                <p className="text-l">New Releases</p>
+            </div>
+
+            <div className="carousel carousel-center max-w-md space-x-3">
+                {albums.map(album => (
+                    <div key={album.id} className="carousel-item">
+                        <AlbumCard key={album.id} album={album} />
+                    </div>
+                ))}
+            </div>
+
+            <div className="mb-2">
+                <p className="text-l">Suggested For You</p>
             </div>
 
             <div className="carousel carousel-center max-w-md space-x-3">

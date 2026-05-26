@@ -15,10 +15,10 @@ export default function PostCard({ post }) {
                     </div>
 
                     <div className="flex flex-col">
-                        <h2 className="card-title text-sm leading-tight">
+                        <h2 className="card-title text-sm">
                             {post.album_name}
                         </h2>
-                        <p className="text-xs opacity-70">
+                        <p className="text-xs font-light opacity-70">
                             {post.artist_name}
                         </p>
                     </div>

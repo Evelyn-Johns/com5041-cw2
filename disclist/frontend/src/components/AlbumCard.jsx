@@ -1,6 +1,6 @@
 export default function AlbumCard({ album }) {
     return (
-        <div className="card bg-base-200 w-28 shrink-0 overflow-hidden">
+        <div className="card bg-base-200 w-24 shrink-0 overflow-hidden">
             <figure>
                 <img
                     src="https://placehold.co/100x100"
@@ -8,12 +8,14 @@ export default function AlbumCard({ album }) {
                     className="w-full aspect-square object-cover"
                 />
             </figure>
-            <div className="card-body p-3">
-                <div className="text-sm">
-                    <p>{album.album_name}</p>
-                </div>
-                <div className="text-xs opacity-70">
-                    <p>{album.artist_name}</p>
+            <div className="card-body p-2 justify-start">
+                <div className="flex flex-col gap-0">
+                    <p className="text-xs">
+                        {album.album_name}
+                    </p>
+                    <p className="text-[10px] font-light opacity-70">
+                        {album.artist_name}
+                    </p>
                 </div>
             </div>
         </div>
