@@ -22,7 +22,7 @@ export default function Home() {
             .then(setAlbums)
             .catch(e => setError(e.message))
             .finally(() => setLoading(false))
-    })
+    }, [])
 
     if (loading) return <div className="flex justify-center p-8"><span className="loading loading-spinner loading-lg text-primary" /></div>
     if (error) return <div className="alert alert-error m-4">{error}</div>
@@ -47,7 +47,7 @@ export default function Home() {
                 <p className="text-l">New Releases</p>
             </div>
 
-            <div className="carousel carousel-center max-w-md space-x-3">
+            <div className="carousel carousel-center max-w-md space-x-3 pb-2">
                 {albums.map(album => (
                     <div key={album.id} className="carousel-item">
                         <AlbumCard key={album.id} album={album} />
@@ -59,7 +59,7 @@ export default function Home() {
                 <p className="text-l">Suggested For You</p>
             </div>
 
-            <div className="carousel carousel-center max-w-md space-x-3">
+            <div className="carousel carousel-center max-w-md space-x-3 pb-2">
                 {albums.map(album => (
                     <div key={album.id} className="carousel-item">
                         <AlbumCard key={album.id} album={album} />

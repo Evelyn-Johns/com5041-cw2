@@ -3,7 +3,7 @@ export default function AlbumCard({ album }) {
         <div className="card bg-base-200 w-24 shrink-0 overflow-hidden">
             <figure>
                 <img
-                    src="https://placehold.co/100x100"
+                    src={album.album_cover || "https://placehold.co/100x100"}
                     alt="Album cover" 
                     className="w-full aspect-square object-cover"
                 />

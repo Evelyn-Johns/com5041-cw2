@@ -8,7 +8,7 @@ export default function PostCard({ post }) {
                 <div className="flex gap-3 items-start">
                     <div className="shrink-0">
                         <img
-                            src="https://placehold.co/100x100"
+                            src={post.album_cover || "https://placehold.co/100x100"}
                             alt={post.album_name}
                             className="w-15 h-15 rounded-md object-cover"
                         />

@@ -16,6 +16,7 @@ def get_posts():
     posts = conn.execute("""
         SELECT posts.id, posts.rating, posts.review,
                albums.name as album_name,
+               albums.cover_url as album_cover,
                artists.name as artist_name,
                users.username
         FROM posts
