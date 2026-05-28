@@ -6,7 +6,6 @@ export default function ModalPostCard({ post }) {
 
             <div className="card-body p-3">
 
-                {/* USER ROW */}
                 <div className="flex items-center gap-2">
                     <div className="text-xs opacity-70">
                         {post.username}
@@ -22,12 +21,10 @@ export default function ModalPostCard({ post }) {
                     </div>
                 </div>
 
-                {/* RATING */}
                 <div className="">
                     <StarRating value={post.rating} readonly />
                 </div>
 
-                {/* CONTENT */}
                 {post.review && (
                     <div className="text-sm">
                         {post.review}

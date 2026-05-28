@@ -7,7 +7,7 @@ export default function SearchResults({ results, query }) {
         return (
             <div className="text-center text-base-content/60 mt-8">
                 <p className="text-lg">Search for albums or artists</p>
-                <p className="text-sm">Try typing something above 👆</p>
+                <p className="text-sm">Try typing something above</p>
             </div>
         )
     }

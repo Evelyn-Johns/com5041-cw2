@@ -29,6 +29,7 @@ def init_db():
                 artist_id INTEGER NOT NULL REFERENCES artists(id),
                 name TEXT NOT NULL,
                 cover_url TEXT DEFAULT '',
+                year INTEGER,
                 UNIQUE (artist_id, name)
             );
         """)
@@ -85,13 +86,13 @@ def init_db():
         artist_ids = {row[0]: row[1] for row in cursor.execute("SELECT name, id FROM artists")}
 
         albums = [
-            (artist_ids["Daft Punk"], "Random Access Memories", "https://upload.wikimedia.org/wikipedia/en/thumb/2/26/Daft_Punk_-_Random_Access_Memories.png/250px-Daft_Punk_-_Random_Access_Memories.png"),
-            (artist_ids["LCD Soundsystem"], "LCD Soundsystem", "https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Afc_lcd_LCDSoundsystem.gif/250px-Afc_lcd_LCDSoundsystem.gif"),
-            (artist_ids["Massive Attack"], "Mezzanine", "https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Massive_Attack_-_Mezzanine.png/250px-Massive_Attack_-_Mezzanine.png"),
-            (artist_ids["Underworld"], "Everything, Everything (Live)", "https://upload.wikimedia.org/wikipedia/en/thumb/1/19/Underworld.everythingeverything.jpg/250px-Underworld.everythingeverything.jpg")
+            (artist_ids["Daft Punk"], "Random Access Memories", "https://upload.wikimedia.org/wikipedia/en/thumb/2/26/Daft_Punk_-_Random_Access_Memories.png/250px-Daft_Punk_-_Random_Access_Memories.png", 2013),
+            (artist_ids["LCD Soundsystem"], "LCD Soundsystem", "https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Afc_lcd_LCDSoundsystem.gif/250px-Afc_lcd_LCDSoundsystem.gif", 2005),
+            (artist_ids["Massive Attack"], "Mezzanine", "https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Massive_Attack_-_Mezzanine.png/250px-Massive_Attack_-_Mezzanine.png", 1998),
+            (artist_ids["Underworld"], "Everything, Everything (Live)", "https://upload.wikimedia.org/wikipedia/en/thumb/1/19/Underworld.everythingeverything.jpg/250px-Underworld.everythingeverything.jpg", 2000)
         ]
         cursor.executemany(
-            "INSERT OR IGNORE INTO albums (artist_id, name, cover_url) VALUES (?, ?, ?)", albums
+            "INSERT OR IGNORE INTO albums (artist_id, name, cover_url, year) VALUES (?, ?, ?, ?)", albums
         )
 
         album_ids = {row[0]: row[1] for row in cursor.execute("SELECT name, id FROM albums")}

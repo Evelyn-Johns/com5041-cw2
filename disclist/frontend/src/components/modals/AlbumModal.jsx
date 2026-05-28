@@ -47,6 +47,9 @@ export default function AlbumModal({ album, onClose }) {
                         <p className="text-md opacity-70">
                             {album.artist_name}
                         </p>
+                        <p className="text-sm opacity-50">
+                            {album.album_year}
+                        </p>
                         {/*Year + genre + avg rating*/}
                     </div>
                 </div>

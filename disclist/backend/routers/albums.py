@@ -10,6 +10,7 @@ def get_albums():
     albums = conn.execute("""
         SELECT albums.id,
                albums.name AS album_name,
+               albums.year AS album_year,
                artists.name AS artist_name,
                albums.cover_url AS album_cover
         FROM albums
