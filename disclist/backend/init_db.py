@@ -98,7 +98,9 @@ def init_db():
 
         posts = [
             (1, album_ids["Mezzanine"], 4, "LOVE" ),
-            (1, album_ids["Random Access Memories"], 3, "Pretty good")
+            (1, album_ids["Random Access Memories"], 3, "Pretty good"),
+            (2, album_ids["Mezzanine"], 5, "A masterpiece"),
+            (3, album_ids["Mezzanine"], 2, "Not my thing")
         ]
         cursor.executemany(
             "INSERT OR IGNORE INTO posts (user_id, album_id, rating, review) VALUES (?, ?, ?, ?)", posts

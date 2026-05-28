@@ -27,6 +27,24 @@ def get_posts():
     conn.close()
     return [dict(p) for p in posts]
 
+@router.get("/album/{album_id}")
+def get_posts_by_album(album_id: int):
+    conn = get_db()
+    posts = conn.execute("""
+        SELECT posts.id, posts.rating, posts.review,
+               albums.name as album_name,
+               albums.cover_url as album_cover,
+               artists.name as artist_name,
+               users.username
+        FROM posts
+        JOIN albums ON posts.album_id = albums.id
+        JOIN artists ON albums.artist_id = artists.id
+        JOIN users ON posts.user_id = users.id
+        WHERE albums.id = ?
+    """, (album_id,)).fetchall()
+    conn.close()
+    return [dict(p) for p in posts]
+
 # @router.post("/")
 # def create_post(post: PostCreate):
 #     conn = get_db()
