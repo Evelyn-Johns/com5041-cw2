@@ -1,6 +1,10 @@
+import { useModal } from "../context/ModalContext";
+
 export default function AlbumCard({ album }) {
+    const { openAlbumModal } = useModal();
+    
     return (
-        <div className="card bg-base-200 w-24 shrink-0 overflow-hidden">
+        <div className="card bg-base-200 w-24 shrink-0 overflow-hidden" onClick={() => openAlbumModal(album)}>
             <figure>
                 <img
                     src={album.album_cover || "https://placehold.co/100x100"}
