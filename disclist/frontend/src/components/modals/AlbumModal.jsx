@@ -24,7 +24,7 @@ export default function AlbumModal({ album, onClose }) {
 
     return (
         <dialog ref={dialogRef} className="modal" onClose={onClose}>
-            <div className="modal-box flex flex-col bg-base-200 p-3 h-[60vh]">
+            <div className="modal-box relative flex flex-col bg-base-200 p-3 pt-10 h-[60vh]">
 
                 <button
                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"

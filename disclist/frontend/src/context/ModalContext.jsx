@@ -16,8 +16,16 @@ export function ModalProvider({ children }) {
         setSelectedAlbum(null);
     };
 
+    const openLoginModal = () => {
+        setActiveModal("login");
+    };
+
+    const openRegisterModal = () => {
+        setActiveModal("register");
+    };
+
     return (
-        <ModalContext.Provider value={{ activeModal, selectedAlbum, openAlbumModal, closeModal }}>
+        <ModalContext.Provider value={{ activeModal, selectedAlbum, openAlbumModal, openLoginModal, openRegisterModal, closeModal }}>
             {children}
         </ModalContext.Provider>
     );

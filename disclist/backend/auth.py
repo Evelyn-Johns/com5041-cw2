@@ -5,7 +5,7 @@ from fastapi import HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
 from database import get_db
 
-SECRET_KEY = "your_secret_key"
+SECRET_KEY = "your_secret_key_super_secret_replace_me"
 ALGORITHM = "HS256"
 TOKEN_EXPIRE_DAYS = 7
 

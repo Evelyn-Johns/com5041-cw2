@@ -1,4 +1,5 @@
 from pathlib import Path
+from auth import hash_password
 import sqlite3
 
 def init_db():
@@ -65,9 +66,9 @@ def init_db():
         # --- Seed data ---
 
         users = [
-            ("Evelyn", "hashed_password_1"),
-            ("Lydia", "hashed_password_2"),
-            ("Lili", "hashed_password_3"),
+            ("Evelyn", hash_password("password1")),
+            ("Lydia", hash_password("password2")),
+            ("Lili", hash_password("password3")),
         ]
         cursor.executemany(
             "INSERT OR IGNORE INTO users (username, password_hash) VALUES (?, ?)", users
