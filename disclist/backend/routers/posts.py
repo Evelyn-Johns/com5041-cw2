@@ -47,6 +47,26 @@ def get_posts_by_album(album_id: int):
     conn.close()
     return [dict(p) for p in posts]
 
+@router.get("/user/{username}")
+def get_user_posts(username: str):
+    conn = get_db()
+    user = conn.execute("SELECT id FROM users WHERE username = ?", (username,)).fetchone()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    posts = conn.execute("""
+        SELECT posts.id, posts.rating, posts.review, posts.created,
+               albums.name as album_name,
+               albums.cover_url as album_cover,
+               artists.name as artist_name
+        FROM posts
+        JOIN albums ON posts.album_id = albums.id
+        JOIN artists ON albums.artist_id = artists.id
+        WHERE posts.user_id = ?
+        ORDER BY posts.created DESC
+    """, (user["id"],)).fetchall()
+    conn.close()
+    return [dict(p) for p in posts]
+
 # @router.post("/")
 # def create_post(post: PostCreate):
 #     conn = get_db()
