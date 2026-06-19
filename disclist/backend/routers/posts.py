@@ -1,14 +1,30 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from database import get_db
+from auth import get_current_user
+import sqlite3
 
 router = APIRouter(prefix="/posts", tags=["posts"])
 
-# class PostCreate(BaseModel):
-#     album_name: str
-#     artist_name: str
-#     rating: int
-#     review: str | None = None
+class PostCreate(BaseModel):
+    album_id: int
+    rating: int
+    review: str | None = None
+
+@router.post("/")
+def create_post(post: PostCreate, current_user = Depends(get_current_user)):
+    conn = get_db()
+    try:
+        conn.execute(
+            "INSERT INTO posts (user_id, album_id, rating, review) VALUES (?, ?, ?, ?)",
+            (current_user["id"], post.album_id, post.rating, post.review)
+        )
+        conn.commit()
+    except sqlite3.IntegrityError:
+        raise HTTPException(status_code=400, detail="You have already reviewed this album")
+    finally:
+        conn.close()
+    return {"message": "Post created"} 
 
 @router.get("/")
 def get_posts():
@@ -46,6 +62,16 @@ def get_posts_by_album(album_id: int):
     """, (album_id,)).fetchall()
     conn.close()
     return [dict(p) for p in posts]
+
+@router.get("album/{album_id}/user/{username}")
+def get_user_post_for_album(album_id = int, current_user = Depends(get_current_user)):
+    conn = get_db()
+    post = conn.execute(
+        "SELECT * FROM posts WHERE album_id = ? AND user_id = ?",
+        (album_id, current_user["id"])
+    ).fetchone()
+    conn.close()
+    return dict(post) if post else None
 
 @router.get("/user/{username}")
 def get_user_posts(username: str):

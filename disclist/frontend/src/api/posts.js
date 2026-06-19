@@ -18,6 +18,27 @@ export async function fetchUserPosts(username) {
     return res.json()
 }
 
+export async function fetchUserPostForAlbum(albumId, token) {
+    const res = await fetch(`${BASE_URL}/posts/album/${albumId}/mine`, {
+        headers: { "Authorization": `Bearer ${token}` }
+    })
+    if (!res.ok) throw new Error("Failed to fetch your post")
+    return res.json()
+}
+
+export async function createPost(data, token) {
+    const res = await fetch(`${BASE_URL}/posts/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+    if (!res.ok) throw new Error("Failed to save post")
+    return res.json()
+}
+
 // export async function createPost(postData) {
 //     const res = await fetch(`${BASE_URL}/posts/`, {
 //         method: "POST",

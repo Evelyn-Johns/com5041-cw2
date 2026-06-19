@@ -3,11 +3,19 @@ import { fetchPostsByAlbum } from "../../api/posts";
 import { X } from "lucide-react";
 import StarRating from "../StarRating";
 import ModalPostCard from "../ModalPostCard";
+import { useAuth } from "../../context/AuthContext";
+import { useModal } from "../../context/ModalContext";
+import CreatePostModal from "./CreatePostModal";
+import { fetchUserPostForAlbum } from "../../api/posts";
 
 export default function AlbumModal({ album, onClose }) {
     const dialogRef = useRef(null);
     const [posts, setPosts] = useState([]);
+    const { isLoggedIn, token } = useAuth();
+    const { openLoginModal } = useModal();
     const [loading, setLoading] = useState(true);
+    const [myPost, setMyPost] = useState(null);
+    const [showCreatePost, setShowCreatePost] = useState(false);
 
     useEffect(() => {
         dialogRef.current?.showModal();
@@ -19,10 +27,31 @@ export default function AlbumModal({ album, onClose }) {
                 .then(setPosts)
                 .catch(e => console.error(e))
                 .finally(() => setLoading(false))
+
+            if (isLoggedIn) {
+                fetchUserPostForAlbum(album.id, token)
+                    .then(setMyPost)
+                    .catch(e => console.error(e))
+            }
         }
-    }, [album])
+    }, [album, isLoggedIn])
+
+        const handleRateClick = () => {
+        if (!isLoggedIn) {
+            openLoginModal()
+            return
+        }
+        setShowCreatePost(true)
+    }
+
+    const handlePostSaved = ({ rating, review }) => {
+        setMyPost({ rating, review })
+        // refresh the reviews list so the new/updated post shows up
+        fetchPostsByAlbum(album.id).then(setPosts)
+    }
 
     return (
+        <>
         <dialog ref={dialogRef} className="modal" onClose={onClose}>
             <div className="modal-box relative flex flex-col bg-base-200 p-3 pt-10 h-[60vh]">
 
@@ -55,15 +84,16 @@ export default function AlbumModal({ album, onClose }) {
                 </div>
 
                 <div className="mb-4">
-                    <StarRating readonly={true} />
+                    <StarRating
+                            name={`my-rating-${album.id}`}
+                            value={myPost?.rating || 0}
+                            readonly
+                        />
                 </div>
 
                 <div className="flex gap-3 mb-4">
-                    <button className="btn btn-primary">
+                    <button className="btn btn-primary" onClick={handleRateClick}>
                         Rate
-                    </button>
-                    <button className="btn btn-outline">
-                        Review
                     </button>
                 </div>
 
@@ -99,5 +129,15 @@ export default function AlbumModal({ album, onClose }) {
                 <button onClick={onClose}>close</button>
             </form>
         </dialog>
+
+        {showCreatePost && (
+                <CreatePostModal
+                    album={album}
+                    existingPost={myPost}
+                    onClose={() => setShowCreatePost(false)}
+                    onSaved={handlePostSaved}
+                />
+            )}
+        </>
     );
 }
