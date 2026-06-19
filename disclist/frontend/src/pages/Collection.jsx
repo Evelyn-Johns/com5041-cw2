@@ -46,7 +46,7 @@ export default function Collection() {
                     <p className="text-sm opacity-30">Start rating albums to build your collection</p>
                 </div>
             ) : (
-                <div className="divide-y divide-base-300">
+                <div className="max-w-3xl mx-auto space-y-3 p-3">
                     {posts.map(post => (
                         <CollectionPostCard key={post.id} post={post} />
                     ))}

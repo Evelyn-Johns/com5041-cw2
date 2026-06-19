@@ -2,7 +2,7 @@ import StarRating from "./StarRating";
 
 export default function CollectionPostCard({ post }) {
     return (
-        <div className="card bg-base-200 w-full shrink-0">
+        <div className="card bg-base-200 shrink-0">
             <div className="card-body p-3">
 
                 <div className="flex gap-3 items-start">
