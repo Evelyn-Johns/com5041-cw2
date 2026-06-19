@@ -19,7 +19,7 @@ export async function fetchUserPosts(username) {
 }
 
 export async function fetchUserPostForAlbum(albumId, token) {
-    const res = await fetch(`${BASE_URL}/posts/album/${albumId}/mine`, {
+    const res = await fetch(`${BASE_URL}/posts/album/${albumId}/me`, {
         headers: { "Authorization": `Bearer ${token}` }
     })
     if (!res.ok) throw new Error("Failed to fetch your post")

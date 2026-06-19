@@ -63,8 +63,8 @@ def get_posts_by_album(album_id: int):
     conn.close()
     return [dict(p) for p in posts]
 
-@router.get("album/{album_id}/user/{username}")
-def get_user_post_for_album(album_id = int, current_user = Depends(get_current_user)):
+@router.get("/album/{album_id}/me")
+def get_user_post_for_album(album_id: int, current_user = Depends(get_current_user)):
     conn = get_db()
     post = conn.execute(
         "SELECT * FROM posts WHERE album_id = ? AND user_id = ?",
